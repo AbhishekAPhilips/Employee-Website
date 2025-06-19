@@ -4,6 +4,7 @@ import Header from './components/Header.jsx'
 import Home from './pages/Home.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
+import Footer from './components/Footer.jsx'
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </main>
+        <Footer />
       </div>
     </Router>
   );

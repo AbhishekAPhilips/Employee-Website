@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const EditPopup = ({ employee, onClose, onSubmit }) => {
-  // Form state
+
   const [employeeId, setEmployeeId] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -11,23 +11,22 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
     gender: 'male'
   });
 
-  // Populate form
   useEffect(() => {
     setEmployeeId(employee.id); 
     setFormData({ name: employee.name || '', email: employee.email || '', department: employee.department || '', salary: employee.salary || '', gender: employee.gender || 'male'});
   }, [employee]);
 
-  // Handle input changes
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Submit updated data
+  
     onSubmit({
       id: employeeId,   
       ...formData,
@@ -38,15 +37,15 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
   return (
     <div className="popup-overlay" onClick={onClose}>
       <div className="popup-content" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
+      
         <div className="popup-header">
           <h3>Edit Employee</h3>
           <button className="close-btn" onClick={onClose}> X </button>
         </div>
 
-        {/* Form */}
+       
         <form className="edit-form" onSubmit={handleSubmit}>
-          {/* Name */}
+       
           <div className="form">
             <label htmlFor="name">Name *</label>
             <input
@@ -59,7 +58,7 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
             />
           </div>
 
-          {/* Email */}
+         
           <div className="form">
             <label htmlFor="email">Email *</label>
             <input
@@ -72,7 +71,7 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
             />
           </div>
 
-          {/* Department */}
+        
           <div className="form">
             <label htmlFor="department">Department *</label>
             <select
@@ -91,7 +90,7 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
             </select>
           </div>
 
-          {/* Salary */}
+         
           <div className="form">
             <label htmlFor="salary">Salary (₹) *</label>
             <input
@@ -105,7 +104,7 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
             />
           </div>
 
-          {/* Gender */}
+        
           <div className="form">
             <label>Gender</label>
             <div className="radio-group">
@@ -132,7 +131,7 @@ const EditPopup = ({ employee, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* Actions */}
+        
           <div className="popup-actions">
             <button type="submit" className="btn btn-save">
               Save Changes

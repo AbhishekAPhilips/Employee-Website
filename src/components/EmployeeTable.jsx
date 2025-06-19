@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import EmployeeRow from './EmployeeRow.jsx';
 import EditPopup from './EditPopup.jsx';  
-import { employeesData } from '../data/employees.jsx'; // Fixed: .js extension
+import { employeesData } from '../data/employees.jsx'; 
 
 const EmployeeTable = () => {
-  // State management
+
   const [employees, setEmployees] = useState(employeesData); 
   const [currentPage, setCurrentPage] = useState(1);
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  // Pagination calculations
+
   const recordsPerPage = 10;
   const totalPages = Math.ceil(employees.length / recordsPerPage);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentEmployees = employees.slice(indexOfFirstRecord, indexOfLastRecord);
 
-  // Edit handlers
+
   const handleEdit = (employee) => {
     setSelectedEmployee(employee);
     setShowEditPopup(true);
@@ -28,30 +28,30 @@ const EmployeeTable = () => {
     handleClosePopup();
   };
 
-  // Delete handler
+
   const handleDelete = (employeeId) => {
     setEmployees(prev => prev.filter(emp => emp.id !== employeeId));
   };
 
-  // Popup handler
+
   const handleClosePopup = () => {
     setShowEditPopup(false);
     setSelectedEmployee(null);
   };
 
-  // Pagination handlers
+ 
   const handlePrevious = () => setCurrentPage(prev => prev - 1);
   const handleNext = () => setCurrentPage(prev => prev + 1);
 
   return (
     <div className="employee-table-container">
-      {/* Table header */}
+    
       <div className="table-header">
         <h2>Employee Management</h2>
         <p>Total Employees: {employees.length}</p>  
       </div>
 
-      {/* Employee table */}
+      
       <table className="employee-table">
         <thead>
           <tr>
@@ -76,7 +76,7 @@ const EmployeeTable = () => {
         </tbody>
       </table>
 
-      {/* Simple pagination */}
+      
       <div className="pagination">
         <button 
           className="pagination-btn" 
@@ -99,7 +99,7 @@ const EmployeeTable = () => {
         </button>
       </div>
 
-      {/* Edit popup */}
+     
       {showEditPopup && selectedEmployee && (
         <EditPopup
           employee={selectedEmployee}
