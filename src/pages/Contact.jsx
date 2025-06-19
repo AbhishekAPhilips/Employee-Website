@@ -15,7 +15,7 @@ const Contact = () => {
         <p>
           For more information, visit the&nbsp;
           <a
-            href="https://www.philips.co.in/healthcare/resources/landing/customer-services-portal/repository-faq"
+            href="https://www.philips.co.in/c-w/support-home.html"
             target="_blank"
             rel="noopener noreferrer"
           >
