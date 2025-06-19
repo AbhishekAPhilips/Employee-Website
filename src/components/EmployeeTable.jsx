@@ -1,76 +1,57 @@
 import React, { useState } from 'react';
 import EmployeeRow from './EmployeeRow.jsx';
 import EditPopup from './EditPopup.jsx';  
-import { employeesData } from '../data/employees.jsx';
+import { employeesData } from '../data/employees.jsx'; // Fixed: .js extension
 
 const EmployeeTable = () => {
+  // State management
   const [employees, setEmployees] = useState(employeesData); 
   const [currentPage, setCurrentPage] = useState(1);
   const [showEditPopup, setShowEditPopup] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
+  // Pagination calculations
   const recordsPerPage = 10;
   const totalPages = Math.ceil(employees.length / recordsPerPage);
-
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const currentEmployees = employees.slice(indexOfFirstRecord, indexOfLastRecord);
 
+  // Edit handlers
   const handleEdit = (employee) => {
     setSelectedEmployee(employee);
     setShowEditPopup(true);
   };
 
   const handleEditSubmit = (updatedEmployee) => {
-    setEmployees(prev => 
-      prev.map(emp => 
-        emp.id === updatedEmployee.id ? updatedEmployee : emp
-      )
-    );
-    setShowEditPopup(false);
-    setSelectedEmployee(null);
+    setEmployees(prev => prev.map(emp => emp.id === updatedEmployee.id ? updatedEmployee : emp));
+    handleClosePopup();
   };
 
-
+  // Delete handler
   const handleDelete = (employeeId) => {
-    if (window.confirm('Are you sure you want to delete this employee?')) {
-      setEmployees(prev => prev.filter(emp => emp.id !== employeeId));
-
-      if (selectedEmployee && selectedEmployee.id === employeeId) {
-        setShowEditPopup(false);
-        setSelectedEmployee(null);
-      }
-    }
+    setEmployees(prev => prev.filter(emp => emp.id !== employeeId));
   };
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
+  // Popup handler
   const handleClosePopup = () => {
     setShowEditPopup(false);
     setSelectedEmployee(null);
   };
 
-  const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
+  // Pagination handlers
+  const handlePrevious = () => setCurrentPage(prev => prev - 1);
+  const handleNext = () => setCurrentPage(prev => prev + 1);
 
   return (
     <div className="employee-table-container">
+      {/* Table header */}
       <div className="table-header">
         <h2>Employee Management</h2>
         <p>Total Employees: {employees.length}</p>  
       </div>
 
+      {/* Employee table */}
       <table className="employee-table">
         <thead>
           <tr>
@@ -78,8 +59,8 @@ const EmployeeTable = () => {
             <th>Name</th>
             <th>Email</th>
             <th>Department</th>
-            <th>Position</th>
-            <th>Salary</th>
+            <th>Gender</th>
+            <th>Salary (₹)</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -95,7 +76,7 @@ const EmployeeTable = () => {
         </tbody>
       </table>
 
-     
+      {/* Simple pagination */}
       <div className="pagination">
         <button 
           className="pagination-btn" 
@@ -105,24 +86,9 @@ const EmployeeTable = () => {
           Previous
         </button>
         
-        <div className="pagination-info">
-          <span>
-            Page {currentPage} of {totalPages} 
-            (Showing {indexOfFirstRecord + 1}-{Math.min(indexOfLastRecord, employees.length)} of {employees.length} employees)
-          </span>
-        </div>
-
-        <div className="page-numbers">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNumber) => (
-            <button
-              key={pageNumber}
-              className={`page-number ${currentPage === pageNumber ? 'active' : ''}`}
-              onClick={() => handlePageChange(pageNumber)}
-            >
-              {pageNumber}
-            </button>
-          ))}
-        </div>
+        <span className="pagination-info">
+          Page {currentPage} of {totalPages}
+        </span>
 
         <button 
           className="pagination-btn" 
@@ -133,13 +99,12 @@ const EmployeeTable = () => {
         </button>
       </div>
 
- 
+      {/* Edit popup */}
       {showEditPopup && selectedEmployee && (
         <EditPopup
           employee={selectedEmployee}
           onClose={handleClosePopup}
           onSubmit={handleEditSubmit}
-          onDelete={handleDelete}
         />
       )}
     </div>

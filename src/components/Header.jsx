@@ -27,12 +27,10 @@ const Header = () => {
         </nav>
         
         <div className="profile-section">
-          <div className="profile-info">
-            <div className="profile-image">
-              <img className="profile-pic" src="src\assets\profilePic.jpg" width={50} />
-            </div>
-            <p className="profile-name">Abhishek A</p>
+          <div className="profile-image">
+            <img className="profile-pic" src="src\assets\profilePic.jpg" width={50} />
           </div>
+          <p className="profile-name">Abhishek A</p>
         </div>
       </div>
     </header>

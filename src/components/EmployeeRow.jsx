@@ -1,4 +1,3 @@
-
 import React from 'react';
 import ActionButtons from './ActionButtons.jsx';
 
@@ -9,8 +8,8 @@ const EmployeeRow = ({ employee, onEdit, onDelete }) => {
       <td>{employee.name}</td>
       <td>{employee.email}</td>
       <td>{employee.department}</td>
-      <td>{employee.position}</td>
-      <td>${employee.salary.toLocaleString()}</td>
+      <td>{employee.gender}</td>
+      <td>₹{employee.salary.toLocaleString()}</td>
       <td>
         <ActionButtons 
           onEdit={() => onEdit(employee)}
