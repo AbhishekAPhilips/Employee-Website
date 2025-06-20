@@ -14,14 +14,8 @@ const Contact = () => {
         </ul>
         <p>
           For more information, visit the&nbsp;
-          <a
-            href="https://www.philips.co.in/c-w/support-home.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Philips FAQ page
-          </a>
-          .
+          <a href="https://www.careers.philips.com/global/en/faq" target="_blank" rel="noopener noreferrer"> Philips FAQ page</a>
+          
         </p>
       </div>
     </div>
